@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>irl on ftard.me</title>
+    <link>http://ftard.me/tags/irl/</link>
+    <description>Recent content in irl on ftard.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 28 Dec 2020 15:26:08 -0500</lastBuildDate><atom:link href="http://ftard.me/tags/irl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My IRL Set Up</title>
+      <link>http://ftard.me/posts/content/irl/irl-setup/</link>
+      <pubDate>Mon, 28 Dec 2020 15:26:08 -0500</pubDate>
+      
+      <guid>http://ftard.me/posts/content/irl/irl-setup/</guid>
+      <description>by dawjanox
+!! Amazon Affiliate Links !!
+Main Gear Encoder: UrayCoder Cam: GoPro Hero5 Power: Halo Bolt Mic: Rode Video Micro Mounting Gear: Mount: Woods 6 inch vacuum cup mount Arm: SMALLRIG articulating arm Ball Head: Neewer Ball Head Server/Software: NOALBS: check it on github SLS: check it on gitlab OBS-STUDIO: check the OBS Project website Linode: Here is a referral link Notes: I plan on doing a full write up of this set up but this is my gear list for IRL right now.</description>
+    </item>
+    
+    <item>
+      <title>H265 Over Srt Headaches</title>
+      <link>http://ftard.me/posts/content/irl/h265-over-srt-headaches/</link>
+      <pubDate>Mon, 14 Dec 2020 16:31:22 -0500</pubDate>
+      
+      <guid>http://ftard.me/posts/content/irl/h265-over-srt-headaches/</guid>
+      <description>So, you have an encoder that is capable of h.264 over SRT? You want to feed the video into OBS? Have you also found that h.265 over SRT is not as well documented as say h.264 over RTMP? I bet you have and so did I. I also banged my head against walls, keyboards, tables, innocent by-standards on the street,.. in all - I - was the biggest obstacle in the way of successfully achieving my 1st SRT transmission.</description>
+    </item>
+    
+  </channel>
+</rss>
