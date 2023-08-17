@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Abouts on ftard.me</title>
+    <link>http://ftard.me/about/</link>
+    <description>Recent content in Abouts on ftard.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 28 Dec 2020 16:53:07 -0500</lastBuildDate><atom:link href="http://ftard.me/about/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>About</title>
+      <link>http://ftard.me/about/about/</link>
+      <pubDate>Mon, 28 Dec 2020 16:53:07 -0500</pubDate>
+      
+      <guid>http://ftard.me/about/about/</guid>
+      <description>Welcome to ftard.me! You have finaly found a site that is about you!
+Or perhaps me, or you,&amp;hellip; or me you and everybody to. You may be asking &amp;lsquo;how would there be a website that knows about you the way that most everyone that knows you do?&amp;rsquo; Well the answer to that question is quite long and full of extremely boring matharymical arithmaticy AlGore-isms. I find the best way to understand is just not to at all!</description>
+    </item>
+    
+  </channel>
+</rss>
