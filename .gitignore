@@ -1,8 +1,9 @@
-*.log
-.gitignore
 archetypes/
-content/
+content
 resources/
+!public/
+!public/posts/
+!public/posts/content/
 static/
 themes/
 *.lock
