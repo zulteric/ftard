@@ -8,6 +8,18 @@
     <loc>http://ftard.me/posts/testing/</loc>
     <lastmod>2023-08-15T19:17:28-04:00</lastmod>
   </url><url>
+    <loc>http://ftard.me/posts/content/brix-kvm-server/</loc>
+    <lastmod>2021-01-27T06:30:57-05:00</lastmod>
+  </url><url>
+    <loc>http://ftard.me/tags/homelab/</loc>
+    <lastmod>2021-01-27T06:30:57-05:00</lastmod>
+  </url><url>
+    <loc>http://ftard.me/tags/linux/</loc>
+    <lastmod>2021-01-27T06:30:57-05:00</lastmod>
+  </url><url>
+    <loc>http://ftard.me/tags/</loc>
+    <lastmod>2021-01-27T06:30:57-05:00</lastmod>
+  </url><url>
     <loc>http://ftard.me/tags/gear/</loc>
     <lastmod>2021-01-10T23:54:57-05:00</lastmod>
   </url><url>
@@ -17,16 +29,10 @@
     <loc>http://ftard.me/tags/streaming/</loc>
     <lastmod>2021-01-10T23:54:57-05:00</lastmod>
   </url><url>
-    <loc>http://ftard.me/tags/</loc>
-    <lastmod>2021-01-10T23:54:57-05:00</lastmod>
-  </url><url>
     <loc>http://ftard.me/tags/git/</loc>
     <lastmod>2021-01-01T18:09:16-05:00</lastmod>
   </url><url>
     <loc>http://ftard.me/posts/git-push-to-remote-server/</loc>
-    <lastmod>2021-01-01T18:09:16-05:00</lastmod>
-  </url><url>
-    <loc>http://ftard.me/tags/linux/</loc>
     <lastmod>2021-01-01T18:09:16-05:00</lastmod>
   </url><url>
     <loc>http://ftard.me/posts/ssh-keys-with-namecheap/</loc>
@@ -52,8 +58,6 @@
   </url><url>
     <loc>http://ftard.me/posts/content/irl/h265-over-srt-headaches/</loc>
     <lastmod>2020-12-14T16:31:22-05:00</lastmod>
-  </url><url>
-    <loc>http://ftard.me/posts/content/brix-kvm-server/</loc>
   </url><url>
     <loc>http://ftard.me/categories/</loc>
   </url><url>

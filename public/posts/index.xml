@@ -19,6 +19,55 @@
         </item>
         
         <item>
+            <title>Brix Kvm Server</title>
+            <link>http://ftard.me/posts/content/brix-kvm-server/</link>
+            <pubDate>Wed, 27 Jan 2021 06:30:57 -0500</pubDate>
+            
+            <guid>http://ftard.me/posts/content/brix-kvm-server/</guid>
+            <description>With Ubuntu Server LTS 20.04 Getting my realtek nic to work
+When I was deleting Debian Buster on my brix machine, I tried to save as many notes and config files for future reference. Anything that would help me remember how to set up KVM from scratch again. There was this little folder called rt0xxxx or something. &amp;lsquo;Huh&amp;rsquo;, I thought&amp;hellip; looks like some kind of realtek driver. Well, it was. A little voice tried to tell me that I spent a hella time scouring blogs trying to get my ethernet port to work and this was the fix.</description>
+            <content type="html"><![CDATA[<h3 id="with-ubuntu-server-lts-2004">With Ubuntu Server LTS 20.04</h3>
+<p><img src="images/brixCorner.jpg" alt="&ldquo;brix&rdquo;"></p>
+<hr>
+<p><em><strong>Getting my realtek nic to work</strong></em></p>
+<hr>
+<p>When I was deleting Debian Buster on my brix machine, I tried to save as many notes and config files for future reference. Anything that would help me remember how to set up KVM from scratch again. There was this little folder called rt0xxxx or something. &lsquo;Huh&rsquo;, I thought&hellip; looks like some kind of realtek driver. Well, it was. A little voice tried to tell me that I spent a hella time scouring blogs trying to get my ethernet port to work and this was the fix. &lsquo;Nah, I don&rsquo;t need it&rsquo; I said. <em>please see the name of this blog</em>
+<img src="images/brixRear.jpg" alt="&ldquo;brix-rear&rdquo;">
+I spent literally hours trying to figure out why my /etc/network/interfaces file would not work. It showed me having an ip address but I couldn&rsquo;t ping anything at all. DNS I thought, so I updated the resolv.conf file, nope. I got lost in Ubuntu&rsquo;s new netplan method thinking that had something to do with it. I uninstalled Network-Manager. The whole time I failed to realize that during the install process I never had network connectivity and I just assumed that if it installed I had networking. That is not the case because it merely installed from USB and I thought it was connecting during install then breaking afterwards.</p>
+<p>Thanks to a blog called tuxbyte, which just might be what I used last time, I was able to get the realtk nic to work correctly.</p>
+<p><a href="https://tuxbyte.com/how-to-get-your-realtek-rtl8111rtl8168-working-updated-guide/">&ldquo;How To get your Realtek RTL8111/RTL8168 working&rdquo;</a></p>
+<p><img src="images/brixOpen.jpg" alt="&ldquo;brix-open&rdquo;"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!-- make sure packages are up to date
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>sudo apt update
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#!-- this is the answer!</span>
+</span></span><span style="display:flex;"><span>sudo apt install r8168-dkms
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#!-- blacklist the old driver just in case</span>
+</span></span><span style="display:flex;"><span>sudo sh -c <span style="color:#e6db74">&#39;echo blacklist r8169 &gt;&gt; /etc/modprobe.d/blacklist.conf&#39;</span>
+</span></span></code></pre></div><hr>
+<p><em><strong>Getting my wifi driver to work</strong></em></p>
+<hr>
+<p>Again with the sh*tty realtek drivers! Very annoying but this is the process to get it running. I want to have wifi available in case I have problems with that ethernet NIC again I will at least have networking. I had an issue with not being able to bring up the interface and after careful investigation I realized the driver I was using was not up to par, once again.</p>
+<p>Using this git repo <a href="https://github.com/abperiasamy/rtl8812AU_8821AU_linux">&ldquo;abperiasamy/rtl8812AU_8821AU_linux&rdquo;</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!-- clone the repo
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>git clone https://github.com/abperiasamy/rtl8812AU_8821AU_linux.git
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#!-- change to the new directory</span>
+</span></span><span style="display:flex;"><span>cd rtl8812AU_8821AU_linux/
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#!-- run this last simple command</span>
+</span></span><span style="display:flex;"><span>sudo make -f Makefile.dkms install
+</span></span></code></pre></div><p>I rebooted and the driver was recognized and the interface was up and netplan connected to my wifi,.. hooray!</p>
+<h2 id="brix-topimagesbrixtopjpg"><img src="images/brixTop.jpg" alt="&ldquo;brix-top&rdquo;"></h2>
+<p><em><strong>Installing Packages</strong></em></p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!-- I did this package 1st but I think it installs with nfs-common
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>sudo apt install libnfs-utils
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#!-- to access my nfs shares</span>
+</span></span><span style="display:flex;"><span>sudo apt install nfs-common
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#!-- to access samba mounts</span>
+</span></span><span style="display:flex;"><span>sudo apt install cifs-utils
+</span></span></code></pre></div>]]></content>
+        </item>
+        
+        <item>
             <title>My Gear</title>
             <link>http://ftard.me/posts/content/gear/</link>
             <pubDate>Sun, 10 Jan 2021 23:54:57 -0500</pubDate>
@@ -301,55 +350,6 @@ Main Gear Encoder: UrayCoder Cam: GoPro Hero5 Power: Halo Bolt Mic: Rode Video M
 <p><a href="https://github.com/Haivision/srt/issues/103">github haivision srt issue 103</a></p>
 <p>A special thanks to the folks at the <a href="https://www.irlhub.net">IRL HUB</a> discord server for their assistance in walking me through these errors!</p>
 ]]></content>
-        </item>
-        
-        <item>
-            <title></title>
-            <link>http://ftard.me/posts/content/brix-kvm-server/</link>
-            <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-            
-            <guid>http://ftard.me/posts/content/brix-kvm-server/</guid>
-            <description>With Ubuntu Server LTS 20.04 Getting my realtek nic to work
-When I was deleting Debian Buster on my brix machine, I tried to save as many notes and config files for future reference. Anything that would help me remember how to set up KVM from scratch again. There was this little folder called rt0xxxx or something. &amp;lsquo;Huh&amp;rsquo;, I thought&amp;hellip; looks like some kind of realtek driver. Well, it was. A little voice tried to tell me that I spent a hella time scouring blogs trying to get my ethernet port to work and this was the fix.</description>
-            <content type="html"><![CDATA[<h3 id="with-ubuntu-server-lts-2004">With Ubuntu Server LTS 20.04</h3>
-<p><img src="images/brixCorner.jpg" alt="&ldquo;brix&rdquo;"></p>
-<hr>
-<p><em><strong>Getting my realtek nic to work</strong></em></p>
-<hr>
-<p>When I was deleting Debian Buster on my brix machine, I tried to save as many notes and config files for future reference. Anything that would help me remember how to set up KVM from scratch again. There was this little folder called rt0xxxx or something. &lsquo;Huh&rsquo;, I thought&hellip; looks like some kind of realtek driver. Well, it was. A little voice tried to tell me that I spent a hella time scouring blogs trying to get my ethernet port to work and this was the fix. &lsquo;Nah, I don&rsquo;t need it&rsquo; I said. <em>please see the name of this blog</em>
-<img src="images/brixRear.jpg" alt="&ldquo;brix-rear&rdquo;">
-I spent literally hours trying to figure out why my /etc/network/interfaces file would not work. It showed me having an ip address but I couldn&rsquo;t ping anything at all. DNS I thought, so I updated the resolv.conf file, nope. I got lost in Ubuntu&rsquo;s new netplan method thinking that had something to do with it. I uninstalled Network-Manager. The whole time I failed to realize that during the install process I never had network connectivity and I just assumed that if it installed I had networking. That is not the case because it merely installed from USB and I thought it was connecting during install then breaking afterwards.</p>
-<p>Thanks to a blog called tuxbyte, which just might be what I used last time, I was able to get the realtk nic to work correctly.</p>
-<p><a href="https://tuxbyte.com/how-to-get-your-realtek-rtl8111rtl8168-working-updated-guide/">&ldquo;How To get your Realtek RTL8111/RTL8168 working&rdquo;</a></p>
-<p><img src="images/brixOpen.jpg" alt="&ldquo;brix-open&rdquo;"></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!-- make sure packages are up to date
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>sudo apt update
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#!-- this is the answer!</span>
-</span></span><span style="display:flex;"><span>sudo apt install r8168-dkms
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#!-- blacklist the old driver just in case</span>
-</span></span><span style="display:flex;"><span>sudo sh -c <span style="color:#e6db74">&#39;echo blacklist r8169 &gt;&gt; /etc/modprobe.d/blacklist.conf&#39;</span>
-</span></span></code></pre></div><hr>
-<p><em><strong>Getting my wifi driver to work</strong></em></p>
-<hr>
-<p>Again with the sh*tty realtek drivers! Very annoying but this is the process to get it running. I want to have wifi available in case I have problems with that ethernet NIC again I will at least have networking. I had an issue with not being able to bring up the interface and after careful investigation I realized the driver I was using was not up to par, once again.</p>
-<p>Using this git repo <a href="https://github.com/abperiasamy/rtl8812AU_8821AU_linux">&ldquo;abperiasamy/rtl8812AU_8821AU_linux&rdquo;</a></p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!-- clone the repo
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>git clone https://github.com/abperiasamy/rtl8812AU_8821AU_linux.git
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#!-- change to the new directory</span>
-</span></span><span style="display:flex;"><span>cd rtl8812AU_8821AU_linux/
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#!-- run this last simple command</span>
-</span></span><span style="display:flex;"><span>sudo make -f Makefile.dkms install
-</span></span></code></pre></div><p>I rebooted and the driver was recognized and the interface was up and netplan connected to my wifi,.. hooray!</p>
-<h2 id="brix-topimagesbrixtopjpg"><img src="images/brixTop.jpg" alt="&ldquo;brix-top&rdquo;"></h2>
-<p><em><strong>Installing Packages</strong></em></p>
-<hr>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!-- I did this package 1st but I think it installs with nfs-common
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>sudo apt install libnfs-utils
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#!-- to access my nfs shares</span>
-</span></span><span style="display:flex;"><span>sudo apt install nfs-common
-</span></span><span style="display:flex;"><span><span style="color:#75715e">#!-- to access samba mounts</span>
-</span></span><span style="display:flex;"><span>sudo apt install cifs-utils
-</span></span></code></pre></div>]]></content>
         </item>
         
     </channel>

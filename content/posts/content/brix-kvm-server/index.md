@@ -1,5 +1,13 @@
 
-
+---
+title: "Brix Kvm Server"
+date: 2021-01-27T06:30:57-05:00
+toc: false
+images:
+tags:
+  - linux
+  - homelab
+---
 ### With Ubuntu Server LTS 20.04
 !["brix"](images/brixCorner.jpg)
 

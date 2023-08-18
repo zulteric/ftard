@@ -6,7 +6,17 @@
     <description>Recent content in linux on ftard.me</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Jan 2021 18:09:16 -0500</lastBuildDate><atom:link href="http://ftard.me/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 27 Jan 2021 06:30:57 -0500</lastBuildDate><atom:link href="http://ftard.me/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Brix Kvm Server</title>
+      <link>http://ftard.me/posts/content/brix-kvm-server/</link>
+      <pubDate>Wed, 27 Jan 2021 06:30:57 -0500</pubDate>
+      
+      <guid>http://ftard.me/posts/content/brix-kvm-server/</guid>
+      <description>With Ubuntu Server LTS 20.04 Getting my realtek nic to work
+When I was deleting Debian Buster on my brix machine, I tried to save as many notes and config files for future reference. Anything that would help me remember how to set up KVM from scratch again. There was this little folder called rt0xxxx or something. &amp;lsquo;Huh&amp;rsquo;, I thought&amp;hellip; looks like some kind of realtek driver. Well, it was. A little voice tried to tell me that I spent a hella time scouring blogs trying to get my ethernet port to work and this was the fix.</description>
+    </item>
+    
     <item>
       <title>Git Push to Remote Server</title>
       <link>http://ftard.me/posts/git-push-to-remote-server/</link>

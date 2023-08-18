@@ -6,7 +6,25 @@
     <description>Recent content in Tags on ftard.me</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 10 Jan 2021 23:54:57 -0500</lastBuildDate><atom:link href="http://ftard.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 27 Jan 2021 06:30:57 -0500</lastBuildDate><atom:link href="http://ftard.me/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>homelab</title>
+      <link>http://ftard.me/tags/homelab/</link>
+      <pubDate>Wed, 27 Jan 2021 06:30:57 -0500</pubDate>
+      
+      <guid>http://ftard.me/tags/homelab/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>http://ftard.me/tags/linux/</link>
+      <pubDate>Wed, 27 Jan 2021 06:30:57 -0500</pubDate>
+      
+      <guid>http://ftard.me/tags/linux/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>gear</title>
       <link>http://ftard.me/tags/gear/</link>
@@ -31,15 +49,6 @@
       <pubDate>Fri, 01 Jan 2021 18:09:16 -0500</pubDate>
       
       <guid>http://ftard.me/tags/git/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>linux</title>
-      <link>http://ftard.me/tags/linux/</link>
-      <pubDate>Fri, 01 Jan 2021 18:09:16 -0500</pubDate>
-      
-      <guid>http://ftard.me/tags/linux/</guid>
       <description></description>
     </item>
     

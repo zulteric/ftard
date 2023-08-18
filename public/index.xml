@@ -17,6 +17,16 @@
     </item>
     
     <item>
+      <title>Brix Kvm Server</title>
+      <link>http://ftard.me/posts/content/brix-kvm-server/</link>
+      <pubDate>Wed, 27 Jan 2021 06:30:57 -0500</pubDate>
+      
+      <guid>http://ftard.me/posts/content/brix-kvm-server/</guid>
+      <description>With Ubuntu Server LTS 20.04 Getting my realtek nic to work
+When I was deleting Debian Buster on my brix machine, I tried to save as many notes and config files for future reference. Anything that would help me remember how to set up KVM from scratch again. There was this little folder called rt0xxxx or something. &amp;lsquo;Huh&amp;rsquo;, I thought&amp;hellip; looks like some kind of realtek driver. Well, it was. A little voice tried to tell me that I spent a hella time scouring blogs trying to get my ethernet port to work and this was the fix.</description>
+    </item>
+    
+    <item>
       <title>My Gear</title>
       <link>http://ftard.me/posts/content/gear/</link>
       <pubDate>Sun, 10 Jan 2021 23:54:57 -0500</pubDate>
@@ -74,16 +84,6 @@ Main Gear Encoder: UrayCoder Cam: GoPro Hero5 Power: Halo Bolt Mic: Rode Video M
       
       <guid>http://ftard.me/posts/content/irl/h265-over-srt-headaches/</guid>
       <description>So, you have an encoder that is capable of h.264 over SRT? You want to feed the video into OBS? Have you also found that h.265 over SRT is not as well documented as say h.264 over RTMP? I bet you have and so did I. I also banged my head against walls, keyboards, tables, innocent by-standards on the street,.. in all - I - was the biggest obstacle in the way of successfully achieving my 1st SRT transmission.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>http://ftard.me/posts/content/brix-kvm-server/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://ftard.me/posts/content/brix-kvm-server/</guid>
-      <description>With Ubuntu Server LTS 20.04 Getting my realtek nic to work
-When I was deleting Debian Buster on my brix machine, I tried to save as many notes and config files for future reference. Anything that would help me remember how to set up KVM from scratch again. There was this little folder called rt0xxxx or something. &amp;lsquo;Huh&amp;rsquo;, I thought&amp;hellip; looks like some kind of realtek driver. Well, it was. A little voice tried to tell me that I spent a hella time scouring blogs trying to get my ethernet port to work and this was the fix.</description>
     </item>
     
   </channel>
