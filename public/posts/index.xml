@@ -1,0 +1,356 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Posts on ftard.me</title>
+        <link>http://ftard.me/posts/</link>
+        <description>Recent content in Posts on ftard.me</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Tue, 15 Aug 2023 19:17:28 -0400</lastBuildDate>
+        <atom:link href="http://ftard.me/posts/index.xml" rel="self" type="application/rss+xml" />
+        
+        <item>
+            <title>Testing</title>
+            <link>http://ftard.me/posts/testing/</link>
+            <pubDate>Tue, 15 Aug 2023 19:17:28 -0400</pubDate>
+            
+            <guid>http://ftard.me/posts/testing/</guid>
+            <description></description>
+            <content type="html"><![CDATA[]]></content>
+        </item>
+        
+        <item>
+            <title>Brix Kvm Server</title>
+            <link>http://ftard.me/posts/content/brix-kvm-server/</link>
+            <pubDate>Wed, 27 Jan 2021 06:30:57 -0500</pubDate>
+            
+            <guid>http://ftard.me/posts/content/brix-kvm-server/</guid>
+            <description>With Ubuntu Server LTS 20.04 Getting my realtek nic to work
+When I was deleting Debian Buster on my brix machine, I tried to save as many notes and config files for future reference. Anything that would help me remember how to set up KVM from scratch again. There was this little folder called rt0xxxx or something. &amp;lsquo;Huh&amp;rsquo;, I thought&amp;hellip; looks like some kind of realtek driver. Well, it was. A little voice tried to tell me that I spent a hella time scouring blogs trying to get my ethernet port to work and this was the fix.</description>
+            <content type="html"><![CDATA[<h3 id="with-ubuntu-server-lts-2004">With Ubuntu Server LTS 20.04</h3>
+<p><img src="images/brixCorner.jpg" alt="&ldquo;brix&rdquo;"></p>
+<hr>
+<p><em><strong>Getting my realtek nic to work</strong></em></p>
+<hr>
+<p>When I was deleting Debian Buster on my brix machine, I tried to save as many notes and config files for future reference. Anything that would help me remember how to set up KVM from scratch again. There was this little folder called rt0xxxx or something. &lsquo;Huh&rsquo;, I thought&hellip; looks like some kind of realtek driver. Well, it was. A little voice tried to tell me that I spent a hella time scouring blogs trying to get my ethernet port to work and this was the fix. &lsquo;Nah, I don&rsquo;t need it&rsquo; I said. <em>please see the name of this blog</em>
+<img src="images/brixRear.jpg" alt="&ldquo;brix-rear&rdquo;">
+I spent literally hours trying to figure out why my /etc/network/interfaces file would not work. It showed me having an ip address but I couldn&rsquo;t ping anything at all. DNS I thought, so I updated the resolv.conf file, nope. I got lost in Ubuntu&rsquo;s new netplan method thinking that had something to do with it. I uninstalled Network-Manager. The whole time I failed to realize that during the install process I never had network connectivity and I just assumed that if it installed I had networking. That is not the case because it merely installed from USB and I thought it was connecting during install then breaking afterwards.</p>
+<p>Thanks to a blog called tuxbyte, which just might be what I used last time, I was able to get the realtk nic to work correctly.</p>
+<p><a href="https://tuxbyte.com/how-to-get-your-realtek-rtl8111rtl8168-working-updated-guide/">&ldquo;How To get your Realtek RTL8111/RTL8168 working&rdquo;</a></p>
+<p><img src="images/brixOpen.jpg" alt="&ldquo;brix-open&rdquo;"></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!-- make sure packages are up to date
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>sudo apt update
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#!-- this is the answer!</span>
+</span></span><span style="display:flex;"><span>sudo apt install r8168-dkms
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#!-- blacklist the old driver just in case</span>
+</span></span><span style="display:flex;"><span>sudo sh -c <span style="color:#e6db74">&#39;echo blacklist r8169 &gt;&gt; /etc/modprobe.d/blacklist.conf&#39;</span>
+</span></span></code></pre></div><hr>
+<p><em><strong>Getting my wifi driver to work</strong></em></p>
+<hr>
+<p>Again with the sh*tty realtek drivers! Very annoying but this is the process to get it running. I want to have wifi available in case I have problems with that ethernet NIC again I will at least have networking. I had an issue with not being able to bring up the interface and after careful investigation I realized the driver I was using was not up to par, once again.</p>
+<p>Using this git repo <a href="https://github.com/abperiasamy/rtl8812AU_8821AU_linux">&ldquo;abperiasamy/rtl8812AU_8821AU_linux&rdquo;</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!-- clone the repo
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>git clone https://github.com/abperiasamy/rtl8812AU_8821AU_linux.git
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#!-- change to the new directory</span>
+</span></span><span style="display:flex;"><span>cd rtl8812AU_8821AU_linux/
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#!-- run this last simple command</span>
+</span></span><span style="display:flex;"><span>sudo make -f Makefile.dkms install
+</span></span></code></pre></div><p>I rebooted and the driver was recognized and the interface was up and netplan connected to my wifi,.. hooray!</p>
+<h2 id="brix-topimagesbrixtopjpg"><img src="images/brixTop.jpg" alt="&ldquo;brix-top&rdquo;"></h2>
+<p><em><strong>Installing Packages</strong></em></p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#!-- I did this package 1st but I think it installs with nfs-common
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>sudo apt install libnfs-utils
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#!-- to access my nfs shares</span>
+</span></span><span style="display:flex;"><span>sudo apt install nfs-common
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#!-- to access samba mounts</span>
+</span></span><span style="display:flex;"><span>sudo apt install cifs-utils
+</span></span></code></pre></div>]]></content>
+        </item>
+        
+        <item>
+            <title>My Gear</title>
+            <link>http://ftard.me/posts/content/gear/</link>
+            <pubDate>Sun, 10 Jan 2021 23:54:57 -0500</pubDate>
+            
+            <guid>http://ftard.me/posts/content/gear/</guid>
+            <description>This is my &amp;rsquo;exhaustive&amp;rsquo; gear list. I will hopefully update this page regularly to include every major and minor little obscure piece of gear I own. Often times people ask me about a thing I use but I can&amp;rsquo;t remember for the life of me the name of it let alone a link to it. Like for instance my fethed or the exact mic stand I use. Please peruse and enjoy!</description>
+            <content type="html"><![CDATA[<p><img src="images/nano.png" alt="&ldquo;Nano Kontrol2&rdquo;"></p>
+<p>This is my &rsquo;exhaustive&rsquo; gear list. I will hopefully update this page regularly to include every major and minor little obscure piece of gear I own. Often times people ask me about a thing I use but I can&rsquo;t remember for the life of me the name of it let alone a link to it. Like for instance my fethed or the exact mic stand I use. Please peruse and enjoy!! :)</p>
+<p><a href="#note"><em>!!Amazon Affiliate Links!!</em></a> <em>-a note</em></p>
+<p><img src="images/rack.png" alt="&ldquo;My rack&rdquo;"></p>
+<p><img src="images/pc.png" alt="&ldquo;My PC&rdquo;"></p>
+<h2 id="game-pc">Game PC</h2>
+<hr>
+<ul>
+<li>MB: <a href="https://amzn.to/38wwjkw">Asus Prime Z370-A</a></li>
+<li>CPU: <a href="https://amzn.to/38w02Kz">Intel 8700K</a></li>
+<li>GPU: <a href="https://amzn.to/2MOwLSN">EVGA RTX 2080 BLACK</a></li>
+<li><em>links are funky, here is the UPC for my gpu 08G-P4-2081-KR</em></li>
+<li>PSU: <a href="https://amzn.to/38yRmmM">EVGA SUPERNOVA 650 G3 Gold</a></li>
+<li>RAM: <a href="https://amzn.to/39nCvuA">16 GB Corsair Vengeance RGB 3200</a></li>
+<li>HD: <a href="https://amzn.to/2MVtcKP">1 TB Samsung 970 EVO Plus M.2 NVMe</a></li>
+<li>Cooler: <a href="https://amzn.to/2XwI04E">Hyper 212 EVO</a></li>
+<li>Case: <a href="https://amzn.to/3bvcqfI">Montech AIR 900 MESH Black</a></li>
+<li>Fans: <a href="https://amzn.to/3ovn6P4">DeepCool RF120M</a> x 8</li>
+</ul>
+<hr>
+<ul>
+<li>Monitor 01 <a href="https://amzn.to/3i53u24">Acer XFA240 144hz</a></li>
+<li>Monitor 02 <a href="https://amzn.to/3sp92Js">BenQ GW2480 60hz</a></li>
+<li>Monitor 03 <a href="https://amzn.to/3sp92Js">BenQ GW2480 60hz</a></li>
+</ul>
+<hr>
+<h2 id="stream-pc">Stream PC</h2>
+<hr>
+<ul>
+<li>MB <a href="https://amzn.to/3nBsyyu">Asus TUFF Gamming X570-Plus-WiFi</a></li>
+<li>CPU <a href="https://amzn.to/39h3N5K">AMD 3900X</a></li>
+<li>GPU <a href="https://amzn.to/2MVPdJt">EVGA GTX 1060 SC</a></li>
+<li>PSU <a href="https://amzn.to/3nDWudj">EVGA SUPERNOVA 850 T2</a></li>
+<li>RAM <a href="https://amzn.to/2XwJ6gI">32G Vengeance 3000</a></li>
+<li>HD1 <a href="https://amzn.to/2XsqZIO">1TB 860 EVO m.2 SATA</a></li>
+<li>HD2 <a href="https://amzn.to/3ny18cX">1TB 970 EVO m.2 NVMe</a></li>
+<li>HD3 <a href="https://amzn.to/3siK0f4">WD 2tb HDD</a></li>
+<li>HD4 <a href="https://amzn.to/3qgw17H">HGST 4tb HDD</a></li>
+<li>HD5 <a href="https://amzn.to/2XvdyI3">256G WD Passport USB3.1</a></li>
+<li>Cooler <a href="https://amzn.to/3nvpHr7">Noctua NHD15 Chromax</a></li>
+<li>Case <a href="https://amzn.to/2LpTaWn">Garbage Can</a></li>
+<li>*a.k.a. DeepCool Tesseract #dontbuy</li>
+</ul>
+<hr>
+<ul>
+<li>Monitor 01 <a href="https://amzn.to/3ntszok">AOC 144hz</a></li>
+<li><em>AOC 2460G4 144hz 24inch</em></li>
+</ul>
+<h2 id="peripherals">Peripherals</h2>
+<hr>
+<ul>
+<li>KeyBoard <a href="https://amzn.to/3bv3EOE">Corsair K70 RGB MK.2 lowpro</a></li>
+<li>Main Mouse <a href="https://amzn.to/2LeZQXr">Logitec G502</a></li>
+<li>2nd Mouse <a href="https://amzn.to/3oA6cz1">Razer Death Ader Elite</a></li>
+</ul>
+<hr>
+<ul>
+<li><a href="https://amzn.to/35wTFVj">Stream Deck</a></li>
+<li><a href="https://amzn.to/39h8UTu">Korg NanoKontrol2</a></li>
+</ul>
+<h2 id="audio">Audio</h2>
+<hr>
+<p><img src="images/mic.jpg" alt="&ldquo;My mic&rdquo;"></p>
+<ul>
+<li>mic <a href="https://amzn.to/3spzvXk">Rode Procaster</a></li>
+<li>shock mount <a href="https://amzn.to/39qAde0">Rode PSM1</a></li>
+<li>stand <a href="https://amzn.to/3qaaXzr">InnoGear</a></li>
+<li>Channel Strip <a href="https://amzn.to/38zcedt">DBX 286s</a></li>
+<li>interface <a href="https://amzn.to/2XsAEPD">PreSonus Studio 192 Mobile</a></li>
+<li>preamp activator <a href="https://amzn.to/3oCEMs5">fethead</a></li>
+<li>cables <a href="https://amzn.to/3s9HUOt">Mogami Sliver 25ft XLR</a></li>
+<li>Ground Loop Isolator <a href="https://amzn.to/35rR4fm">Pyle Mini Hum Elliminator</a></li>
+<li>power conditioner <a href="https://amzn.to/2Lf2IDH">Furman M-8X2</a></li>
+</ul>
+<hr>
+<ul>
+<li>Main Head Phones <a href="https://amzn.to/35vHdW5">MassDrop AKG K7XX</a></li>
+<li>alt. Head Phones <a href="https://amzn.to/3buHzjp">Audio Technica AD700</a></li>
+<li>Headphone Amp: <a href="https://amzn.to/3sipbA7">Fosi Audio Q4</a></li>
+</ul>
+<h2 id="video">Video</h2>
+<hr>
+<ul>
+<li><a href="https://amzn.to/35yNOiu">Sony A6400</a></li>
+<li>lens &hellip; <a href="https://amzn.to/3sc8GFQ">Sigma 16mm 1.4</a></li>
+<li><a href="https://amzn.to/2MLzpZw">Gopro Hero5 Black</a></li>
+<li><a href="https://amzn.to/3nD7mIu">Logitec C270</a></li>
+<li>Old Camera <a href="https://amzn.to/3bAzhGV">Canon Rebel t2i</a></li>
+<li>Capture Card <a href="https://amzn.to/3qfsHJX">Camlink</a></li>
+</ul>
+<h2 id="lighting">Lighting</h2>
+<hr>
+<ul>
+<li><a href="https://amzn.to/3oGBBQo">Phillips Hue Bulb</a></li>
+<li><a href="https://amzn.to/3scQtbb">Phillips Hue Strip</a></li>
+<li><a href="https://amzn.to/3oz6iH6">GVM Ring Light</a></li>
+<li><a href="https://amzn.to/3nx8q0x">USB LED lights</a></li>
+</ul>
+<hr>
+<h3 id="note">About Amazon Affiliate Links:</h3>
+<p>My friend, I am obligated to tell you that clicking on any of the links above, provides me with the possibility of monetizing your little click-itie click-ities! You see <a href="https://en.wikipedia.org/wiki/Jeff_Bezos">Jeff Bezos</a> is the richest man in the known universe. They say that <a href="https://en.wikipedia.org/wiki/Elon_Musk">Elon Musk</a> is the richest but when the Martians invade they will surely kill Elon first, but Bezos will be able to distract the Martians by educating them about his Amazon Prime feature. Which will no doubt keep them busy shopping online.</p>
+<p>What this all means is that <a href="https://en.wikipedia.org/wiki/Jeff_Bezos">Jeff Bezos</a> has a lot of shiny pennies. If you click a link on this page and eventually buy the product, Jeff,&hellip; will pull out one of his shiny pennies and start shaving some penny dust - which will fall on his boot. Then he will look down at my lowly self and instruct me to lick his boot if I want my shiny penny dust. If I do this enough I can eventually defecate an entire penny! =D So if you would not be so offended in helping me on my quest,.. I thank you for your kind patronage!</p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>Git Push to Remote Server</title>
+            <link>http://ftard.me/posts/git-push-to-remote-server/</link>
+            <pubDate>Fri, 01 Jan 2021 18:09:16 -0500</pubDate>
+            
+            <guid>http://ftard.me/posts/git-push-to-remote-server/</guid>
+            <description>Is there a better way to get those pages out into the wild and free them from your keystrokes and up onto your web server? Yes, and even better than ftp, scp, rsync or simply drag and dropping files, at your disposal there is GIT!
+Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.</description>
+            <content type="html"><![CDATA[<p>Is there a better way to get those pages out into the wild and free them from your keystrokes and up onto your web server? Yes, and even better than ftp, scp, rsync or simply drag and dropping files, at your disposal there is <a href="https://git-scm.com">GIT</a>!</p>
+<blockquote>
+<p>Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.</p>
+</blockquote>
+<p>Create your directory on your website, or use your root if that is what you are using. In my case I have an extra domain that sits in its own directory on the root. This is also set up with ssh-keys for authentication. Read how I did it for my set up,.. <a href="http://ftard.me/posts/ssh-keys-with-namecheap/">SSH-Keys with Namecheap</a></p>
+<p>On your remote server:
+initiate a new repo</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git init
+</span></span></code></pre></div><p>to enable pushing to a checked out branch on the server type</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git config receive.denyCurrentBranch updateInstead
+</span></span></code></pre></div><hr>
+<p>On your local machine:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git remote add origin ssh://user@yourdomain:port/home/user/path_to_folder
+</span></span><span style="display:flex;"><span>git push origin <span style="color:#f92672">(</span>branch<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Where (branch) is the branch you wish to push (i.e. master, dev, pub etc,..)
+In your remote directory make sure you check out the new branch or nothing will show.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd newdir/
+</span></span><span style="display:flex;"><span>git checkout <span style="color:#f92672">(</span>branch<span style="color:#f92672">)</span>
+</span></span></code></pre></div>]]></content>
+        </item>
+        
+        <item>
+            <title>Ssh Keys With Namecheap</title>
+            <link>http://ftard.me/posts/ssh-keys-with-namecheap/</link>
+            <pubDate>Fri, 01 Jan 2021 16:47:53 -0500</pubDate>
+            
+            <guid>http://ftard.me/posts/ssh-keys-with-namecheap/</guid>
+            <description>I like linux but I&amp;rsquo;m on WinDoz a lot and I use Powershell never PuTTY. I have a namecheap shared hosting plan and I can never remember how to access my site with ssh-keys, for shell access to my server and also using git for revision control and pushing content to my server. Here is a walk though using powershell.
+1st check OpenSSH status on Windows. from docs.microsoft
+Get-WindowsCapability -Online | ?</description>
+            <content type="html"><![CDATA[<p>I like linux but I&rsquo;m on WinDoz a lot and I use Powershell never PuTTY. I have a namecheap shared hosting plan and I can never remember how to access my site with ssh-keys, for shell access to my server and also using git for revision control and pushing content to my server. Here is a walk though using powershell.</p>
+<p>1st check OpenSSH status on Windows. from <a href="https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse">docs.microsoft</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Get-WindowsCapability -Online | ? Name -like <span style="color:#e6db74">&#39;OpenSSH*&#39;</span>
+</span></span></code></pre></div><p>Should return something like,..</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Name  : OpenSSH.Client~~~~0.0.1.0
+</span></span><span style="display:flex;"><span>State : NotPresent
+</span></span><span style="display:flex;"><span>Name  : OpenSSH.Server~~~~0.0.1.0
+</span></span><span style="display:flex;"><span>State : NotPresent
+</span></span></code></pre></div><p>Install OpenSSH Client type,..</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0
+</span></span></code></pre></div><p>If you want a server run,..(I did not install, if you do double check <a href="https://docs.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse">docs.microsoft</a>)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+</span></span></code></pre></div><p>You should have a ~.ssh\ directory if Not</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir ~<span style="color:#ae81ff">\.</span>ssh
+</span></span><span style="display:flex;"><span>cd ~<span style="color:#ae81ff">\.</span>ssh
+</span></span><span style="display:flex;"><span>ssh-keygen -t rsa -b <span style="color:#ae81ff">4096</span> -C <span style="color:#e6db74">&#34;your@email.com&#34;</span>
+</span></span></code></pre></div><p>I add a passphrase but you shouldn&rsquo;t need one. You now should have 2 files in ~.ssh.</p>
+<hr>
+<ul>
+<li>Log into your namecheap web panel.</li>
+<li>Go to Security &ndash;&gt; SSH Access.</li>
+<li>Press &lsquo;Manage SSH Keys&rsquo;</li>
+<li>then press &lsquo;import key&rsquo;.</li>
+</ul>
+<hr>
+<ul>
+<li>In the &lsquo;public&rsquo; box copy paste the file contents of your public key.</li>
+<li>Add your password you created for the key into the password field.</li>
+<li>Press &lsquo;import&rsquo;.</li>
+<li>When you press &lsquo;back&rsquo; you should see your key</li>
+<li>Now press the &lsquo;manage&rsquo; icon for your key.</li>
+<li>Now press &lsquo;Authorize&rsquo;.</li>
+</ul>
+<hr>
+<p>Now here is the real deal and the make or break moment lets see if it works. If your plan is shared hosting and not a VPS or something you must specify the port as 21098. If you do have VPS it is port 22 as usual.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh user@yoursite.com -p21098
+</span></span></code></pre></div>]]></content>
+        </item>
+        
+        <item>
+            <title>My IRL Set Up</title>
+            <link>http://ftard.me/posts/content/irl/irl-setup/</link>
+            <pubDate>Mon, 28 Dec 2020 15:26:08 -0500</pubDate>
+            
+            <guid>http://ftard.me/posts/content/irl/irl-setup/</guid>
+            <description>by dawjanox
+!! Amazon Affiliate Links !!
+Main Gear Encoder: UrayCoder Cam: GoPro Hero5 Power: Halo Bolt Mic: Rode Video Micro Mounting Gear: Mount: Woods 6 inch vacuum cup mount Arm: SMALLRIG articulating arm Ball Head: Neewer Ball Head Server/Software: NOALBS: check it on github SLS: check it on gitlab OBS-STUDIO: check the OBS Project website Linode: Here is a referral link Notes: I plan on doing a full write up of this set up but this is my gear list for IRL right now.</description>
+            <content type="html"><![CDATA[<p>by <a href="https://www.twitch.tv/dawjanox">dawjanox</a></p>
+<p><em>!! Amazon Affiliate Links !!</em></p>
+<h3 id="main-gear"><strong>Main Gear</strong></h3>
+<ul>
+<li>Encoder: <a href="https://www.amazon.com/gp/product/B07DS47XF3/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B07DS47XF3&amp;linkCode=as2&amp;tag=dawjanox-20&amp;linkId=8392897d9968339ff04b75849ac7fd12">UrayCoder</a></li>
+<li>Cam: <a href="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;MarketPlace=US&amp;ASIN=B01MT0TJOM&amp;ServiceVersion=20070822&amp;ID=AsinImage&amp;WS=1&amp;Format=_SL110_&amp;tag=dawjanox-20">GoPro Hero5</a></li>
+<li>Power: <a href="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;MarketPlace=US&amp;ASIN=B07FM85W13&amp;ServiceVersion=20070822&amp;ID=AsinImage&amp;WS=1&amp;Format=_SL110_&amp;tag=dawjanox-20">Halo Bolt</a></li>
+<li>Mic: <a href="https://www.amazon.com/gp/product/B07KGJ9WDF/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B07KGJ9WDF&amp;linkCode=as2&amp;tag=dawjanox-20&amp;linkId=1ada890eedcc050c5b8c0c1eef6132e5">Rode Video Micro</a></li>
+</ul>
+<h3 id="mounting-gear"><strong>Mounting Gear:</strong></h3>
+<ul>
+<li>Mount: <a href="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;MarketPlace=US&amp;ASIN=B00IDF1AC6&amp;ServiceVersion=20070822&amp;ID=AsinImage&amp;WS=1&amp;Format=_SL110_&amp;tag=dawjanox-20">Woods 6 inch vacuum cup mount</a></li>
+<li>Arm: <a href="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;MarketPlace=US&amp;ASIN=B00NW6HDAE&amp;ServiceVersion=20070822&amp;ID=AsinImage&amp;WS=1&amp;Format=_SL110_&amp;tag=dawjanox-20">SMALLRIG articulating arm</a></li>
+<li>Ball Head: <a href="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;MarketPlace=US&amp;ASIN=B071JWMS5J&amp;ServiceVersion=20070822&amp;ID=AsinImage&amp;WS=1&amp;Format=_SL110_&amp;tag=dawjanox-20">Neewer Ball Head</a></li>
+</ul>
+<h3 id="serversoftware">Server/Software:</h3>
+<ul>
+<li>NOALBS: <a href="https://github.com/715209/nginx-obs-automatic-low-bitrate-switching">check it on github</a></li>
+<li>SLS: <a href="https://gitlab.com/mattwb65/srt-live-server">check it on gitlab</a></li>
+<li>OBS-STUDIO: <a href="https://obsproject.com">check the OBS Project website</a></li>
+<li>Linode: <a href="https://www.linode.com/?r=6a8aa6205c7810f18ddaf82aaa0098ec876d5899">Here is a referral link</a></li>
+</ul>
+<p><strong>Notes:</strong> I plan on doing a full write up of this set up but this is my gear list for IRL right now. I use <a href="https://en.wikipedia.org/wiki/High_Efficiency_Video_Coding">H.265</a> to encode and send the feed over the <a href="https://github.com/Haivision/srt">SRT</a> protocol - because <a href="https://en.wikipedia.org/wiki/High_Efficiency_Video_Coding">H.265</a> takes half the bitrate than typical <a href="https://en.wikipedia.org/wiki/Advanced_Video_Coding">H.264</a> for the same video quality. Every major streaming platform uses only <a href="https://www.haivision.com/resources/streaming-video-definitions/real-time-messaging-protocol-rtmp/">RTMP</a> which does not support <a href="https://en.wikipedia.org/wiki/High_Efficiency_Video_Coding">H.265</a>. Using my mobile network I relay that feed to an <a href="https://gitlab.com/mattwb65/srt-live-server">SLS</a> server on a <a href="https://www.linode.com/?r=6a8aa6205c7810f18ddaf82aaa0098ec876d5899">Linode</a> instance . I have <a href="https://github.com/715209/nginx-obs-automatic-low-bitrate-switching">NOALBS</a> running on a <a href="https://www.debian.org">Debian10</a> [<em>Virtual Machine</em>] on my home PC which reads the active feed and changes scenes in <a href="https://obsproject.com">OBS</a> depending on my bit rate. My PC runs <a href="https://obsproject.com">OBS</a> which pulls the <a href="https://github.com/Haivision/srt">SRT</a> feed from my <a href="https://gitlab.com/mattwb65/srt-live-server">SLS</a> server on <a href="https://www.linode.com/?r=6a8aa6205c7810f18ddaf82aaa0098ec876d5899">Linode</a>, then re-encodes to <a href="https://en.wikipedia.org/wiki/X264">X.264</a> and sends it to <a href="https://www.twitch.tv/dawjanox">Twitch</a> over <a href="https://www.haivision.com/resources/streaming-video-definitions/real-time-messaging-protocol-rtmp/">RTMP</a>.</p>
+<p><strong>12.09.20</strong> 1st irl stream but using H.264 over <a href="https://www.haivision.com/resources/streaming-video-definitions/real-time-messaging-protocol-rtmp/">RTMP</a> which went to the noalbs server I set on my home stream PC (using the NGINX rtmp module) then rendered and encoded in OBS and sent to my twitch channel. This consumed quite a bit of data being that I was using h.264. I also used an OBS noise filter taht was way to aggressive in that people coming into my stream heard absolutley no backround or engine noise. So unless I was speaking they thought there was no audio in my stream.
+<a href="https://youtu.be/iPdmGJBOeak"><img src="images/Trkn8ntEZ-ep001.jpg" alt="TRKn8ntEZ! ::: ep.001"></a>
+<em>TRKn8ntEZ! ::: ep.001 click to watch</em></p>
+<p><strong>12.26.20</strong> Success! Well success in that I got h265 over srt as a workable proof of concept operation. My mobile carrier unfortunatley killed my bandwidth by throttling my tehering speed to 600kbps. Which made the stream pointless and unusable. I&rsquo;ve had to use SLS server on my linode instance to bypass the firewall problems i&rsquo;ve had with my <a href="http://www.pfsense.org">pfsense</a> rouiter and SRT. I&rsquo;m hoping to employ the powers of the Boy Wonder networking genius a.k.a. <a href="https://twitch.tv/fragpad">fragpad</a>
+<a href="https://youtu.be/8IsaG5jjRik"><img src="images/Trkn8ntEZ-ep002.jpg" alt="TRKn8ntEZ! ::: ep.002"></a>
+<em>click to watch</em></p>
+<p><strong>01.05.21</strong></p>
+<p><a href="https://youtu.be/giq4vNBcdfo"><img src="https://i9.ytimg.com/vi/giq4vNBcdfo/mq2.jpg?sqp=COzclIAG&amp;rs=AOn4CLBeisXtQkpVsKhQPSqS6_XKTKtl4Q" alt="TRKn8ntEZ! ::: ep.003"></a>
+<em>click to watch</em></p>
+<p><strong>01.13.21</strong></p>
+<p><a href="https://youtu.be/e1fwMLoSAGA"><img src="https://i9.ytimg.com/vi/e1fwMLoSAGA/mq2.jpg?sqp=CJjflIAG&amp;rs=AOn4CLAffqTVkWQ-X1D_YTJnSn9BrPd5Sg" alt="TRKn8ntEZ! ::: ep.004"></a>
+<em>click to watch</em></p>
+<p>An honorable mention to the <a href="http://https://discord.gg/kPgwxEg">IRL Hub</a> discord community who helped me greatly with the install process. Others to be mentioned as well as I build this page out. Yours Truly <a href="https://www.twitch.tv/dawjanox">dawjanox</a></p>
+]]></content>
+        </item>
+        
+        <item>
+            <title>H265 Over Srt Headaches</title>
+            <link>http://ftard.me/posts/content/irl/h265-over-srt-headaches/</link>
+            <pubDate>Mon, 14 Dec 2020 16:31:22 -0500</pubDate>
+            
+            <guid>http://ftard.me/posts/content/irl/h265-over-srt-headaches/</guid>
+            <description>So, you have an encoder that is capable of h.264 over SRT? You want to feed the video into OBS? Have you also found that h.265 over SRT is not as well documented as say h.264 over RTMP? I bet you have and so did I. I also banged my head against walls, keyboards, tables, innocent by-standards on the street,.. in all - I - was the biggest obstacle in the way of successfully achieving my 1st SRT transmission.</description>
+            <content type="html"><![CDATA[<p>So, you have an encoder that is capable of h.264 over SRT? You want to feed the video into OBS? Have you also found that h.265 over SRT is not as well documented as say h.264 over RTMP? I bet you have and so did I. I also banged my head against walls, keyboards, tables, innocent by-standards on the street,.. in all - <em><strong>I</strong></em> - was the biggest obstacle in the way of successfully achieving my 1st SRT transmission. This happens to me frequently when documentation is scarce or null. So I will describe the errors that kept me from successfully pushing SRT over IP.</p>
+<p><em><strong>Mistakes</strong></em></p>
+<ul>
+<li>Don&rsquo;t use git clone with the sudo command</li>
+<li>Don&rsquo;t use Debian Buster, use Ubuntu Server stable.</li>
+<li>Get outside more, what are you doing?</li>
+</ul>
+<p>So firstly I ran this on a linode instance because at the time of writing I can&rsquo;t seem to get SRT through my pfsense firewall. But hosting this server externally doesn&rsquo;t seem to be any problem. This is not ideal however because it costs $5 per month not to mention my computer that runs OBS an home would be capable of running this server. This will do for the time being until I resolve the firewall issues.</p>
+<h2 id="when-ubuntu-is-running-do-the-following"><em><strong>When Ubuntu is running do the following</strong></em></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># update system</span>
+</span></span><span style="display:flex;"><span>sudo apt update <span style="color:#f92672">&amp;&amp;</span> apt upgrade -y
+</span></span><span style="display:flex;"><span>reboot
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># install haivision srt</span>
+</span></span><span style="display:flex;"><span>sudo apt install git tclsh pkg-config cmake libssl-dev libsrt-dev build-essential -y
+</span></span><span style="display:flex;"><span>git clone https://github.com/Haivision/srt.git
+</span></span><span style="display:flex;"><span>cd srt
+</span></span><span style="display:flex;"><span>./configure
+</span></span><span style="display:flex;"><span>make
+</span></span><span style="display:flex;"><span>sudo make install
+</span></span></code></pre></div><hr>
+<h2 id="you-should-see-this-message"><em><strong>You should see this message</strong></em></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e">#******************************************************************************#</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#                          Build successful !                                  #</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#******************************************************************************#</span>
+</span></span></code></pre></div><hr>
+<h2 id="now-install-srt-live-server"><em><strong>Now install srt-live-server</strong></em></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># install sls</span>
+</span></span><span style="display:flex;"><span>cd ..
+</span></span><span style="display:flex;"><span>git clone https://gitlab.com/mattwb65/srt-live-server.git
+</span></span><span style="display:flex;"><span>sudo apt install lib32z1-dev -y
+</span></span><span style="display:flex;"><span>cd srt-live-server
+</span></span><span style="display:flex;"><span>make
+</span></span><span style="display:flex;"><span>cd bin
+</span></span><span style="display:flex;"><span>./sls -h
+</span></span></code></pre></div><p>While searching for error solutions I stumbled on this post in which the library was not being copied over during the make install process.</p>
+<p><a href="https://github.com/Haivision/srt/issues/103">github haivision srt issue 103</a></p>
+<p>A special thanks to the folks at the <a href="https://www.irlhub.net">IRL HUB</a> discord server for their assistance in walking me through these errors!</p>
+]]></content>
+        </item>
+        
+    </channel>
+</rss>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>gear on ftard.me</title>
+    <link>http://ftard.me/tags/gear/</link>
+    <description>Recent content in gear on ftard.me</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 10 Jan 2021 23:54:57 -0500</lastBuildDate><atom:link href="http://ftard.me/tags/gear/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My Gear</title>
+      <link>http://ftard.me/posts/content/gear/</link>
+      <pubDate>Sun, 10 Jan 2021 23:54:57 -0500</pubDate>
+      
+      <guid>http://ftard.me/posts/content/gear/</guid>
+      <description>This is my &amp;rsquo;exhaustive&amp;rsquo; gear list. I will hopefully update this page regularly to include every major and minor little obscure piece of gear I own. Often times people ask me about a thing I use but I can&amp;rsquo;t remember for the life of me the name of it let alone a link to it. Like for instance my fethed or the exact mic stand I use. Please peruse and enjoy!</description>
+    </item>
+    
+  </channel>
+</rss>
